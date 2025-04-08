@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "usJeDP6KgwpkvrIs9JMGNq4dswlE1VZo9wmUM4GzUH4aUV4q8ydK5sVxzmE7bAWlTzNDJRXcCNpL1OsWyYlUgg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\dns\\Desktop\\Git\\GeneticAlgorithm\\GeneticAlgorithm\\GeneticAlgorithm.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\dns\\.nuget\\packages\\oxyplot.core\\2.2.0\\oxyplot.core.2.2.0.nupkg.sha512",
+    "C:\\Users\\dns\\.nuget\\packages\\oxyplot.wpf\\2.2.0\\oxyplot.wpf.2.2.0.nupkg.sha512",
+    "C:\\Users\\dns\\.nuget\\packages\\oxyplot.wpf.shared\\2.2.0\\oxyplot.wpf.shared.2.2.0.nupkg.sha512"
+  ],
+  "logs": []
+}
