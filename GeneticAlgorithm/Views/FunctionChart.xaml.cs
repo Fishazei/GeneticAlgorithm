@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -82,7 +83,7 @@ namespace GeneticAlgorithm.Views
     public class GraphViewModel : ViewModelBase
     {
         private PlotModel _plotModel;
-        private string _title;
+        private string? _title;
 
         public PlotModel PlotModel
         {
@@ -98,33 +99,72 @@ namespace GeneticAlgorithm.Views
 
         public GraphViewModel(string title)
         {
-            Title = title;
             PlotModel = new PlotModel { Title = title };
+            InitializeAxes();
+        }
 
+        private void InitializeAxes()
+        {
+            // Ось X
             PlotModel.Axes.Add(new LinearAxis
             {
                 Position = AxisPosition.Bottom,
                 Title = "X",
                 MajorGridlineStyle = LineStyle.Dot,
-                MinorGridlineStyle = LineStyle.Dot,
-                AxislineColor = OxyColors.Black,
-                AxislineThickness = 2,
+                MinorGridlineStyle = LineStyle.Dot
             });
 
+            // Ось Y
             PlotModel.Axes.Add(new LinearAxis
             {
                 Position = AxisPosition.Left,
                 Title = "Y",
                 MajorGridlineStyle = LineStyle.Dot,
-                MinorGridlineStyle = LineStyle.Dot,
-                AxislineColor = OxyColors.Black,
-                AxislineThickness = 2,
+                MinorGridlineStyle = LineStyle.Dot
             });
         }
-
-        public void AddPointsOnXAxis(IEnumerable<double> xValues, OxyColor color, string title = "")
+        // Метод для добавления/обновления линии графика
+        public void UpdateLineSeries(IEnumerable<DataPoint> points, OxyColor color, string title = "")
         {
-            var points = xValues.Select(x => new DataPoint(x, 0)); // Y=0 для точек на оси OX
+            // Удаляем предыдущую линию, если есть
+            var existingLine = PlotModel.Series
+                .OfType<LineSeries>()
+                .FirstOrDefault(s => s.Title == title);
+
+            if (existingLine != null)
+            {
+                PlotModel.Series.Remove(existingLine);
+            }
+
+            var lineSeries = new LineSeries
+            {
+                Title = title,
+                Color = color,
+                StrokeThickness = 2,
+                MarkerType = MarkerType.None
+            };
+
+            foreach (var point in points)
+            {
+                lineSeries.Points.Add(point);
+            }
+
+            PlotModel.Series.Add(lineSeries);
+            PlotModel.InvalidatePlot(true);
+        }
+
+        // Метод для добавления/обновления точек
+        public void UpdateScatterSeries(IEnumerable<DataPoint> points, OxyColor color, string title = "")
+        {
+            // Удаляем предыдущие точки с таким же title
+            var existingScatter = PlotModel.Series
+                .OfType<ScatterSeries>()
+                .FirstOrDefault(s => s.Title == title);
+
+            if (existingScatter != null)
+            {
+                PlotModel.Series.Remove(existingScatter);
+            }
 
             var scatterSeries = new ScatterSeries
             {
@@ -141,23 +181,20 @@ namespace GeneticAlgorithm.Views
                 scatterSeries.Points.Add(new ScatterPoint(point.X, point.Y));
             }
 
+            Debug.WriteLine($"-= Scatter points count: {scatterSeries.Points.Count()}");
+
+            foreach (var point in scatterSeries.Points)
+            {
+                Debug.WriteLine($"{point.X} : {point.Y}");
+            }
             PlotModel.Series.Add(scatterSeries);
             PlotModel.InvalidatePlot(true);
         }
 
-        public void UpdatePlot(IEnumerable<DataPoint> points, OxyColor color, string seriesTitle = "")
+        // Метод для очистки всех серий
+        public void ClearAllSeries()
         {
             PlotModel.Series.Clear();
-
-            var series = new LineSeries
-            {
-                Title = seriesTitle,
-                Color = color,
-                StrokeThickness = 2,
-                ItemsSource = points
-            };
-
-            PlotModel.Series.Add(series);
             PlotModel.InvalidatePlot(true);
         }
     }

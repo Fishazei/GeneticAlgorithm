@@ -8,36 +8,12 @@ using System.Threading.Tasks;
 
 namespace GeneticAlgorithm.Functions
 {
-    public interface IFunction
+
+    public struct FuncParams
     {
-        string? Name { get; set; }
-        double Evaluate(params double[] x);
-        double Fitness(double value);
-    }
-
-    // Абстрактные классы для дальнейшей перезаписи
-    public abstract class Function1D : IFunction
-    {
-        public string? Name { get { return Name ?? "Func"; } set { Name = value; } }
-        public abstract double Evaluate(params double[] x);
-
-        public virtual double Fitness(double value)
-        {
-            // Для задач минимизации
-            return 1 / (1 + value);
-        }
-    }
-
-    public abstract class Function2D : IFunction
-    {
-        public string? Name { get { return Name ?? "Func"; } set { Name = value; } }
-        public abstract double Evaluate(params double[] x);
-
-        public virtual double Fitness(double value)
-        {
-            // Для задач минимизации
-            return 1 / (1 + value);
-        }
+        public double A;
+        public double B;
+        public double Eps;
     }
 
     // Непосредственно функции
@@ -45,7 +21,12 @@ namespace GeneticAlgorithm.Functions
     {
         public static double Evaluate(params double[] x)
         {
+            //return x[0] * x[0];
             return -1.3 * Math.Sin(1.6 * Math.Pow(x[0], 2) - 0.3) * Math.Exp(-0.3 * x[0] + 0.5);
+        }
+        public static double Fitness(params double[] x)
+        {
+            return -Evaluate(x) + 10;
         }
     }
 }
