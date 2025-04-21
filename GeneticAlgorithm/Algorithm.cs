@@ -15,6 +15,7 @@ namespace GeneticAlgorithm
 {
     public class Algorithm
     {
+        private Logger _logger;
         // Настройки алгоритма
         public class Settings
         {
@@ -25,6 +26,15 @@ namespace GeneticAlgorithm
             public int MaxGenerations { get; set; } = 100;
             public int DelayBetweenGenerations { get; set; } = 500; // ms
             public IOptimizationFunction function1 = new SinFunction();
+
+            public string Log()
+            {
+                string tmp = "";
+                tmp += "|| Algorithm Settings:\n" + $"|| Population size: {PopulationSize}\n"
+                    + $"|| Elite ratio: {EliteRatio}\n" + $"|| Crossover rate: {CrossoverRate}\n"
+                    + $"|| Mutation rate: {MutationRate}\n"; 
+                return tmp;
+            }
         }
 
         // Состояние алгоритма
@@ -46,10 +56,11 @@ namespace GeneticAlgorithm
         public event Action<State> OnAlgorithmCompleted;
 
         // Конструктор
-        public Algorithm(FuncParams functionParams, IOptimizationFunction function)
+        public Algorithm(FuncParams functionParams, IOptimizationFunction function, string filePath)
         {
             FunctionParameters = functionParams;
             Configuration.function1 = function;
+            _logger = new Logger(filePath);
             Reset();
         }
 
@@ -64,6 +75,7 @@ namespace GeneticAlgorithm
                 },
                 CurrentGeneration = 0,
             };
+            _logger.Log(Configuration.Log());
         }
 
         // Запуск одной итерации
@@ -72,21 +84,21 @@ namespace GeneticAlgorithm
             if (CurrentState.CurrentGeneration >= Configuration.MaxGenerations)
                 return;
 
-            var pop = CurrentState.Population;
-            pop.LogPopulate(CurrentState.CurrentGeneration);
+            var pop = CurrentState.Population; 
             pop.SortPopulate();
             pop.EliteCrossover();
             pop.RouletteSelection();
             //pop.Mutate(Configuration.MutationRate);
             pop.CalcAveFit();
 
-            pop.LogPopulate(CurrentState.CurrentGeneration);
-
             CurrentState.AverageFitnessHistory.Add(pop.AveFit);
             OnGenerationCompleted?.Invoke(CurrentState);
             CurrentState.CurrentGeneration++;
             if (CurrentState.CurrentGeneration >= Configuration.MaxGenerations)
                 OnAlgorithmCompleted?.Invoke(CurrentState);
+
+            _logger.Log(pop.LogPopulate(CurrentState.CurrentGeneration));
+            _logger.Log($"| Average fitness in generation: {pop.AveFit}\n");
         }
 
         // Асинхронный запуск до завершения
@@ -153,14 +165,12 @@ namespace GeneticAlgorithm
             }
             AveFit /= Pop.Count;
         }
-
         // Сортировка популяции по функции приспособленности
         public void SortPopulate()
         {
             CalcFitness();
             Pop.Sort((x, y) => y.Fitness.CompareTo(x.Fitness));
         }
-
         #region Отбор
         // Отбор Рулеткой
         public void RouletteSelection()
@@ -230,10 +240,10 @@ namespace GeneticAlgorithm
             if (a != null ) genTemp = $"== Generation {a} ==\n";
             foreach (var individ in Pop)
             {
-                string l1 = $"|\t{individ.LogChrom()}\n";
-                string l2 = $"|\t{individ.Decode():f2}\t{individ.Fitness:f2}\t{_func.Evaluate(individ.Decode()):f2}\n";
-                string l3 = "|== == ==\n";
-                genTemp += l1 + l2 + l3;
+                string l1 = $"| {individ.LogChrom()}|";
+                string l2 = $"\t{string.Join(" ", string.Join(" ", individ.Decode().Select(x => $"{x:f2}")))}" +
+                            $"\t{individ.Fitness:f2}\t{_func.Evaluate(individ.Decode()):f2}\n";
+                genTemp += l1 + l2;
             }
             Debug.WriteLine(genTemp);
             return genTemp;
@@ -329,7 +339,7 @@ namespace GeneticAlgorithm
             string tmp = "";
             foreach(var chrom in Chromosome){
                 tmp += string.Join("", chrom);
-                tmp += "\t";
+                tmp += " ";
             }
             return tmp;
         }
@@ -395,9 +405,9 @@ namespace GeneticAlgorithm
         // Привязка параметров алгоритма
         public Algorithm.Settings AlgorithmSettings => _algorithm.Configuration;
 
-        public GeneticAlgorithmViewModel(FuncParams functionParams, IOptimizationFunction function)
+        public GeneticAlgorithmViewModel(FuncParams functionParams, IOptimizationFunction function, string logName)
         {
-            _algorithm = new Algorithm(functionParams, function);
+            _algorithm = new Algorithm(functionParams, function, logName);
 
             // Инициализация графиков
             ObjectiveFunctionPlot = new GraphViewModel("Целевая функция");

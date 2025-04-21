@@ -1,5 +1,6 @@
 ﻿using GeneticAlgorithm.Functions;
 using HelixToolkit.Wpf;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -22,6 +23,7 @@ namespace GeneticAlgorithm.Views
     {
         private Model3DGroup _modelGroup;
         private readonly IOptimizationFunction _function;
+        private readonly bool _fitnessFlag;
 
         public Model3DGroup ModelGroup
         {
@@ -29,10 +31,11 @@ namespace GeneticAlgorithm.Views
             set => Set(ref _modelGroup, value);
         }
 
-        public Graph3DViewModel(IOptimizationFunction function)
+        public Graph3DViewModel(IOptimizationFunction function, bool fitness = false)
         {
             ModelGroup = new Model3DGroup();
             _function = function;  // Передаем функцию извне
+            _fitnessFlag = fitness;
             InitializeAxes();
         }
 
@@ -66,10 +69,10 @@ namespace GeneticAlgorithm.Views
 
             foreach (var point in points)
             {
-                // Предполагаем, что point содержит [x, y, z]
+                //point содержит [x, y]
                 double x = point[0];
                 double y = point[1];
-                double z = _function.Evaluate(point) * 0.05;
+                double z = _fitnessFlag ? _function.Fitness(point) * 0.05 : _function.Evaluate(point) * 0.05;
 
                 builder.AddSphere(new Point3D(x, y, z), size);
             }
@@ -119,7 +122,7 @@ namespace GeneticAlgorithm.Views
                 for (int j = 0; j < resolution; j++)
                 {
                     double y = yMin + (yMax - yMin) * j / (resolution - 1);
-                    double z = _function.Evaluate([x, y]) * 0.05;  // Вызов ZYXFunction.Evaluate()
+                    double z = _fitnessFlag ? _function.Fitness(x, y) * 0.05 : _function.Evaluate(x, y) * 0.05;  // Вызов ZYXFunction.Evaluate()
                     points[i, j] = new Point3D(x, y, z);
                 }
             }

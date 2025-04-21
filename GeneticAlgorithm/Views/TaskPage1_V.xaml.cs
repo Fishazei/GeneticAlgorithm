@@ -37,7 +37,7 @@ namespace GeneticAlgorithm.Views
                 B = [5], 
                 Eps = [0.01] 
             };
-            _algorithm = new Algorithm(functionParams, new SinFunction());
+            _algorithm = new Algorithm(functionParams, new SinFunction(), "task1");
 
             // Инициализация графиков
             ObjectiveFunctionPlot = new GraphViewModel("Целевая функция");

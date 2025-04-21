@@ -1,0 +1,6 @@
+|| Algorithm Settings:
+|| Population size: 20
+|| Elite ratio: 0,2
+|| Crossover rate: 0,85
+|| Mutation rate: 0,15
+

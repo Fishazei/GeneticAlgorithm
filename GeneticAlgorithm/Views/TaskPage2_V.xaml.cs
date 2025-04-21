@@ -52,11 +52,11 @@ namespace GeneticAlgorithm.Views
                 B = [4.0, 4.0],
                 Eps = [0.001, 0.001]
             };
-            _algorithm = new Algorithm(functionParams, new ZYXFunction());
+            _algorithm = new Algorithm(functionParams, new ZYXFunction(), "task2");
 
             // Инициализация графиков
             Function3DPlot = new Graph3DViewModel(new ZYXFunction());
-            FitnessFunction3DPlot = new Graph3DViewModel(new ZYXFunction());
+            FitnessFunction3DPlot = new Graph3DViewModel(new ZYXFunction(), true);
             AverageFitnessPlot = new GraphViewModel("Средняя приспособленность");
 
             // Инициализация команд
@@ -80,6 +80,11 @@ namespace GeneticAlgorithm.Views
                 _algorithm.FunctionParameters.B[0],
                 _algorithm.FunctionParameters.A[1],
                 _algorithm.FunctionParameters.B[1]);
+            FitnessFunction3DPlot.UpdateFunctionSurface(
+                _algorithm.FunctionParameters.A[0],
+                _algorithm.FunctionParameters.B[0],
+                _algorithm.FunctionParameters.A[1],
+                _algorithm.FunctionParameters.B[1]);
         }
 
         private void OnGenerationCompleted(Algorithm.State state)
@@ -89,17 +94,7 @@ namespace GeneticAlgorithm.Views
                 .Select(ind => ind.Decode());
 
             Function3DPlot.UpdatePopulation(populationPoints);
-
-            //// Подсветка лучшего решения
-            //var bestIndividual = state.Population.Pop
-            //    .OrderBy(ind => _algorithm.Configuration.function1.Fitness(ind.Decode()))
-            //    .FirstOrDefault();
-
-            //if (bestIndividual != null)
-            //{
-            //    Function3DPlot.HighlightBestSolution(bestIndividual.Decode());
-            //}
-
+            FitnessFunction3DPlot.UpdatePopulation(populationPoints);
             // Обновление графика средней приспособленности
             var avgFitnessPoints = state.AverageFitnessHistory
                 .Select((value, index) => new DataPoint(index, value));
@@ -141,13 +136,12 @@ namespace GeneticAlgorithm.Views
         private void ResetAlgorithm()
         {
             _algorithm.Reset();
-
             // Очистка графиков
-            //Function3DPlot.ClearPlot();
+            Function3DPlot.ClearPoints();
+            FitnessFunction3DPlot.ClearPoints();
             AverageFitnessPlot.ClearAllSeries();
-
             // Повторная инициализация
-            InitializeFunctionPlots();
+            //InitializeFunctionPlots();
         }
     }
 }

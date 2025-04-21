@@ -69,7 +69,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <local:Plot3DFunc Grid.Column="1" Margin="2"/>
+            <local:Plot3DFunc Grid.Column="1" DataContext="{Binding FitnessFunction3DPlot}" Margin="2"/>
             <local:Plot3DFunc  DataContext="{Binding Function3DPlot}" Margin="2"/>
             <local:FunctionChart Grid.Row="1" Margin="2" DataContext="{Binding AverageFitnessPlot}"/>
         </Grid>
