@@ -1,20 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
@@ -176,16 +162,18 @@ namespace GeneticAlgorithm.Views
                 MarkerStrokeThickness = 1
             };
 
-            foreach (var point in points)
-            {
-                scatterSeries.Points.Add(new ScatterPoint(point.X, point.Y));
-            }
+            var groupedPoints = points
+                .GroupBy(p => new { p.X, p.Y })
+                .Select(g => new {
+                    X = g.Key.X,
+                    Y = g.Key.Y,
+                    Count = g.Count(),
+                    Size = 5 + Math.Log(g.Count()) * 2 // Размер зависит от кол-ва точек
+                });
 
-            Debug.WriteLine($"-= Scatter points count: {scatterSeries.Points.Count()}");
-
-            foreach (var point in scatterSeries.Points)
+            foreach (var point in groupedPoints)
             {
-                Debug.WriteLine($"{point.X} : {point.Y}");
+                scatterSeries.Points.Add(new ScatterPoint(point.X, point.Y, point.Size));
             }
             PlotModel.Series.Add(scatterSeries);
             PlotModel.InvalidatePlot(true);

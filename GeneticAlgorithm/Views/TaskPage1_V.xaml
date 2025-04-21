@@ -72,17 +72,5 @@
             <local:FunctionChart Grid.Column="1" Margin="2" DataContext="{Binding FitnessFunctionPlot}"/>
             <local:FunctionChart Grid.Row="1" Margin="2" DataContext="{Binding AverageFitnessPlot}"/>
         </Grid>
-        
-        <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <TextBlock
-           Text="{Binding CurrentState.Population.BestIndividual.Fitness, StringFormat='Лучшая приспособленность: {0:F4}'}"
-           Margin="5"/>
-        <TextBlock
-           Text="{Binding CurrentState.Population.AveFit, StringFormat='Средняя приспособленность: {0:F4}'}"
-           Margin="5"/>
-        <TextBlock 
-           Text="{Binding CurrentState.CurrentGeneration, StringFormat='Поколение: {0}'}"
-           Margin="5"/>
-        </StackPanel>
     </Grid>
 </Page>

@@ -4,14 +4,12 @@ C:\Users\dns\Desktop\Git\GeneticAlgorithm\GeneticAlgorithm\bin\Debug\net8.0-wind
 C:\Users\dns\Desktop\Git\GeneticAlgorithm\GeneticAlgorithm\bin\Debug\net8.0-windows\GeneticAlgorithm.dll
 C:\Users\dns\Desktop\Git\GeneticAlgorithm\GeneticAlgorithm\bin\Debug\net8.0-windows\GeneticAlgorithm.pdb
 C:\Users\dns\Desktop\Git\GeneticAlgorithm\GeneticAlgorithm\obj\Debug\net8.0-windows\MainWindow.g.cs
-C:\Users\dns\Desktop\Git\GeneticAlgorithm\GeneticAlgorithm\obj\Debug\net8.0-windows\Views\NavMenu.g.cs
 C:\Users\dns\Desktop\Git\GeneticAlgorithm\GeneticAlgorithm\obj\Debug\net8.0-windows\Views\TaskPage1_V.g.cs
 C:\Users\dns\Desktop\Git\GeneticAlgorithm\GeneticAlgorithm\obj\Debug\net8.0-windows\Views\TaskPage2_V.g.cs
 C:\Users\dns\Desktop\Git\GeneticAlgorithm\GeneticAlgorithm\obj\Debug\net8.0-windows\App.g.cs
 C:\Users\dns\Desktop\Git\GeneticAlgorithm\GeneticAlgorithm\obj\Debug\net8.0-windows\GeneticAlgorithm_MarkupCompile.cache
 C:\Users\dns\Desktop\Git\GeneticAlgorithm\GeneticAlgorithm\obj\Debug\net8.0-windows\GeneticAlgorithm_MarkupCompile.lref
 C:\Users\dns\Desktop\Git\GeneticAlgorithm\GeneticAlgorithm\obj\Debug\net8.0-windows\MainWindow.baml
-C:\Users\dns\Desktop\Git\GeneticAlgorithm\GeneticAlgorithm\obj\Debug\net8.0-windows\Views\NavMenu.baml
 C:\Users\dns\Desktop\Git\GeneticAlgorithm\GeneticAlgorithm\obj\Debug\net8.0-windows\Views\TaskPage1_V.baml
 C:\Users\dns\Desktop\Git\GeneticAlgorithm\GeneticAlgorithm\obj\Debug\net8.0-windows\Views\TaskPage2_V.baml
 C:\Users\dns\Desktop\Git\GeneticAlgorithm\GeneticAlgorithm\obj\Debug\net8.0-windows\GeneticAlgorithm.g.resources
@@ -49,3 +47,6 @@ C:\Users\dns\Desktop\Git\GeneticAlgorithm\GeneticAlgorithm\bin\Debug\net8.0-wind
 C:\Users\dns\Desktop\Git\GeneticAlgorithm\GeneticAlgorithm\bin\Debug\net8.0-windows\runtimes\win7-x64\native\libuv.dll
 C:\Users\dns\Desktop\Git\GeneticAlgorithm\GeneticAlgorithm\bin\Debug\net8.0-windows\runtimes\win7-x86\native\libuv.dll
 C:\Users\dns\Desktop\Git\GeneticAlgorithm\GeneticAlgorithm\bin\Debug\net8.0-windows\HelixToolkit.Wpf.dll
+C:\Users\dns\Desktop\Git\GeneticAlgorithm\GeneticAlgorithm\obj\Debug\net8.0-windows\GeneticAlgorithm.sourcelink.json
+C:\Users\dns\Desktop\Git\GeneticAlgorithm\GeneticAlgorithm\obj\Debug\net8.0-windows\Views\Plot3DFunc.baml
+C:\Users\dns\Desktop\Git\GeneticAlgorithm\GeneticAlgorithm\obj\Debug\net8.0-windows\Views\Plot3DFunc.g.cs

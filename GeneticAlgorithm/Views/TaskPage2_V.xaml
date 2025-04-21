@@ -8,7 +8,70 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TaskPage2_V">
 
-    <Grid>
-        <TextBlock Text="This is Page 2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Grid Background="LightGray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="212*"/>
+            <RowDefinition Height="13*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*" MinWidth="300"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Панель управления -->
+        <StackPanel Grid.Row="0" Orientation="Vertical" Margin="5">
+
+            <StackPanel Orientation="Vertical" Background="White" Width="170" >
+                <Button Content="Одна итерация" 
+                Command="{Binding RunSingleIterationCommand}"
+                Margin="5" Padding="10,5"/>
+
+                <Button Content="Запустить до конца" 
+                Command="{Binding RunToCompletionCommand}"
+                Margin="5" Padding="10,5"/>
+
+                <Button Content="Остановить" 
+                Command="{Binding StopAlgorithmCommand}"
+                Margin="5" Padding="10,5"/>
+
+                <Button Content="Сбросить" 
+                Command="{Binding ResetAlgorithmCommand}"
+                Margin="5" Padding="10,5"/>
+
+            </StackPanel>
+            <!-- Настройки алгоритма -->
+            <StackPanel Margin="0,10" Orientation="Horizontal" Background="White" Width="170">
+                <StackPanel Orientation="Vertical" Margin="5,10,0,10">
+                    <TextBlock Text="Размер популяции:" VerticalAlignment="Center" Margin="0,0,0,2"/>
+                    <TextBlock Text="Поколений:" VerticalAlignment="Center" Margin="0,0,0,2"/>
+                    <TextBlock Text="Вер. кроссовера:" Margin="0,0,0,2"/>
+                    <TextBlock Text="Вер. мутации:" Margin="0,0,0,2"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="0,10,0,10">
+                    <TextBox Text="{Binding AlgorithmSettings.PopulationSize, UpdateSourceTrigger=PropertyChanged}"
+                     Width="50" Margin="5,0"/>
+                    <TextBox Text="{Binding AlgorithmSettings.MaxGenerations, UpdateSourceTrigger=PropertyChanged}"
+                     Width="50" Margin="5,0"/>
+                    <TextBox Text="{Binding AlgorithmSettings.CrossoverRate}" Width="50"/>
+                    <TextBox Text="{Binding AlgorithmSettings.MutationRate}" Width="50"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Графики -->
+        <Grid Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <local:Plot3DFunc Grid.Column="1" Margin="2"/>
+            <local:Plot3DFunc  DataContext="{Binding Function3DPlot}" Margin="2"/>
+            <local:FunctionChart Grid.Row="1" Margin="2" DataContext="{Binding AverageFitnessPlot}"/>
+        </Grid>
     </Grid>
 </Page>

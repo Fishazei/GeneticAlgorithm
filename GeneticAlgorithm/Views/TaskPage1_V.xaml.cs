@@ -1,26 +1,12 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using GeneticAlgorithm.Functions;
 using OxyPlot;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace GeneticAlgorithm.Views
 {
-    /// <summary>
-    /// Interaction logic for TaskPage1_V.xaml
-    /// </summary>
     public partial class TaskPage1_V : Page
     {
         public TaskPage1_V()
@@ -34,7 +20,6 @@ namespace GeneticAlgorithm.Views
         public GraphViewModel ObjectiveFunctionPlot { get; }
         public GraphViewModel FitnessFunctionPlot { get; }
         public GraphViewModel AverageFitnessPlot { get; }
-
         private readonly Algorithm _algorithm;
         private CancellationTokenSource _cancellationTokenSource;
         // Команды для управления алгоритмом
@@ -47,8 +32,12 @@ namespace GeneticAlgorithm.Views
 
         public Page1VM()
         {
-            var functionParams = new FuncParams { A = -5, B = 5, Eps = 0.01 };
-            _algorithm = new Algorithm(functionParams);
+            var functionParams = new FuncParams {
+                A = [-5], 
+                B = [5], 
+                Eps = [0.01] 
+            };
+            _algorithm = new Algorithm(functionParams, new SinFunction());
 
             // Инициализация графиков
             ObjectiveFunctionPlot = new GraphViewModel("Целевая функция");
@@ -73,12 +62,12 @@ namespace GeneticAlgorithm.Views
             // Отрисовка целевой функции
             var points = new List<DataPoint>();
             var fitnessPoints = new List<DataPoint>();
-            for (double x = _algorithm.FunctionParameters.A;
-                        x <= _algorithm.FunctionParameters.B;
-                        x += _algorithm.FunctionParameters.Eps)
+            for (double x = _algorithm.FunctionParameters.A[0];
+                        x <= _algorithm.FunctionParameters.B[0];
+                        x += _algorithm.FunctionParameters.Eps[0])
             {
-                points.Add(new DataPoint(x, SinFunction.Evaluate(x)));
-                fitnessPoints.Add(new DataPoint(x, SinFunction.Fitness(x)));
+                points.Add(new DataPoint(x, _algorithm.Configuration.function1.Evaluate(x)));
+                fitnessPoints.Add(new DataPoint(x, _algorithm.Configuration.function1.Fitness(x)));
             }
             ObjectiveFunctionPlot.UpdateLineSeries(points, OxyColors.Blue, "Целевая функция");
             FitnessFunctionPlot.UpdateLineSeries(fitnessPoints, OxyColors.Green, "Приспособленность");
@@ -88,7 +77,7 @@ namespace GeneticAlgorithm.Views
         {
             // Обновление точек популяции
             var populationPoints = state.Population.Pop
-                .Select(ind => new DataPoint(ind.Decode(), SinFunction.Evaluate(ind.Decode())));
+                .Select(ind => new DataPoint(ind.Decode()[0], _algorithm.Configuration.function1.Evaluate(ind.Decode())));
 
             ObjectiveFunctionPlot.UpdateScatterSeries(
                 populationPoints,
@@ -96,7 +85,7 @@ namespace GeneticAlgorithm.Views
                 "Популяция");
 
             populationPoints = state.Population.Pop
-            .Select(ind => new DataPoint(ind.Decode(), ind.Fitness));
+            .Select(ind => new DataPoint(ind.Decode()[0], ind.Fitness));
 
             FitnessFunctionPlot.UpdateScatterSeries(
                 populationPoints,

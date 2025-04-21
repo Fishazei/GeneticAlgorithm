@@ -23,7 +23,7 @@ namespace GeneticAlgorithm
 
             // Создание страниц
             var TaskPage1 = new TaskPage1_V() { DataContext = new Page1VM() };
-            var TaskPage2 = new TaskPage2_V();
+            var TaskPage2 = new TaskPage2_V() { DataContext = new Page2VM() };
 
             // Обработчик изменения вкладки
             MainTabControl.SelectionChanged += (sender, e) =>

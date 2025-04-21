@@ -24,6 +24,7 @@ namespace GeneticAlgorithm
             public double MutationRate { get; set; } = 0.15;
             public int MaxGenerations { get; set; } = 100;
             public int DelayBetweenGenerations { get; set; } = 500; // ms
+            public IOptimizationFunction function1 = new SinFunction();
         }
 
         // Состояние алгоритма
@@ -45,9 +46,10 @@ namespace GeneticAlgorithm
         public event Action<State> OnAlgorithmCompleted;
 
         // Конструктор
-        public Algorithm(FuncParams functionParams)
+        public Algorithm(FuncParams functionParams, IOptimizationFunction function)
         {
             FunctionParameters = functionParams;
+            Configuration.function1 = function;
             Reset();
         }
 
@@ -56,7 +58,7 @@ namespace GeneticAlgorithm
         {
             CurrentState = new State
             {
-                Population = new Population(Configuration.PopulationSize, FunctionParameters)
+                Population = new Population(Configuration.PopulationSize, FunctionParameters, Configuration.function1)
                 {
                     CrosRatio = Configuration.CrossoverRate
                 },
@@ -119,11 +121,14 @@ namespace GeneticAlgorithm
         public double MutateRatio = 0.15;
         public double AveFit { get; private set; }
 
-        public Population(int popCount, FuncParams fp)
+        private readonly IOptimizationFunction _func;
+
+        public Population(int popCount, FuncParams fp, IOptimizationFunction func)
         {
             _popCount = popCount;
             for (int i = 0; i < popCount; i++)
                 Pop.Add(new Individ(fp));
+            _func = func;
         }
 
         // Подсчёт приспособленностей
@@ -133,7 +138,7 @@ namespace GeneticAlgorithm
             double[] result = new double[Pop.Count];
             foreach (var individ in Pop)
             {
-                individ.Fitness = SinFunction.Fitness(individ.Decode());
+                individ.Fitness = _func.Fitness(individ.Decode());
                 result[i++] = individ.Fitness;
             }
             return result;
@@ -143,7 +148,7 @@ namespace GeneticAlgorithm
             AveFit = 0;
             foreach (var individ in Pop)
             {
-                individ.Fitness = SinFunction.Fitness(individ.Decode());
+                individ.Fitness = _func.Fitness(individ.Decode());
                 AveFit += individ.Fitness;
             }
             AveFit /= Pop.Count;
@@ -165,23 +170,16 @@ namespace GeneticAlgorithm
             var rnd = new Random();
             double[] pr;
             List<Individ> tmp = new List<Individ>();
-            
-            //Debug.WriteLine("Start ============================= " + Pop.Count);
             while (tmp.Count < _popCount)
             {
                 pr = CalcPR();
                 double p = rnd.NextDouble();
                 double psum = 0;
-                //p *= p;
                 int i = -1;
-
                 while (psum < p) psum += pr[++i];
-
-                //Debug.WriteLine($"{i} : {p}");
                 tmp.Add(Pop[i].Clone());
                 Pop.RemoveAt(i);
             }
-            //Debug.WriteLine("End ============================= " + tmp.Count);
             Pop.Clear();
             Pop = tmp;
         }
@@ -190,11 +188,8 @@ namespace GeneticAlgorithm
         {
             double[] pr = new double[Pop.Count];
             double sum = 0;
-
             foreach (var individ in Pop) sum += individ.Fitness;
             for (int i = 0; i < Pop.Count; i++) pr[i] = Pop[i].Fitness / sum;
-
-            //Console.WriteLine(string.Join(" | ", pr));
             return pr;
         }
         #endregion
@@ -209,38 +204,24 @@ namespace GeneticAlgorithm
                 var child1 = new Individ(Pop[i].FP);
                 var child2 = new Individ(Pop[i].FP);
                 int j = i+1;
-                // Скрещивания с выбором случайной точки перелома
-                var cross = rnd.Next(2, Pop[i].BitCount-2);
-                child1.Crossbreeding(Pop[i], Pop[j], cross);
-                child2.Crossbreeding(Pop[j], Pop[i], cross);
-                // Мутация
-                if (rnd.NextDouble() < MutateRatio)
-                    child1.Mutate(rnd.Next(0, child1.BitCount));
-                if (rnd.NextDouble() < MutateRatio)
-                    child2.Mutate(rnd.Next(0, child2.BitCount));
-                // Более сильная мутация
-                //for (int k = 0; k < child1.BitCount; k++)
-                //{
-                //    if (rnd.NextDouble() < MutateRatio)
-                //        child1.Mutate(k);
-                //    if (rnd.NextDouble() < MutateRatio)
-                //        child2.Mutate(k);
-                //}
+                // Скрещивания с выбором случайной точки перелома по каждой хромосоме
+                for (int dim = 0; dim < Pop[i].FP.Dimensions; dim++){
+                    var cross = rnd.Next(2, Pop[i].BitCount[dim] - 2);
+                    child1.Crossbreeding(Pop[i], Pop[j], cross, dim);
+                    child2.Crossbreeding(Pop[j], Pop[i], cross, dim);
+                    // Мутация
+                    if (rnd.NextDouble() < MutateRatio)
+                        child1.Mutate(dim, rnd.Next(0, child1.BitCount[dim]));
+                    if (rnd.NextDouble() < MutateRatio)
+                        child2.Mutate(dim, rnd.Next(0, child2.BitCount[dim]));
+
+                }
                 // Подсчёт приспособленности для молодых
-                child1.Fitness = SinFunction.Fitness(child1.Decode());
-                child2.Fitness = SinFunction.Fitness(child2.Decode());
+                child1.Fitness = _func.Fitness(child1.Decode());
+                child2.Fitness = _func.Fitness(child2.Decode());
                 // Добавляем в основную популяцию
                 Pop.Add(child1); Pop.Add(child2);
             }
-        }
-        public void Mutate(double mutationRate = 0.1)
-        {
-            var rnd = new Random();
-            foreach (var individ in Pop)
-                for (int i = 0; i < individ.BitCount; i++)
-                    if (rnd.NextDouble() < mutationRate)
-                        individ.Mutate(i);
-            CalcFitness();
         }
         #endregion
         public string LogPopulate(int? a)
@@ -250,7 +231,7 @@ namespace GeneticAlgorithm
             foreach (var individ in Pop)
             {
                 string l1 = $"|\t{individ.LogChrom()}\n";
-                string l2 = $"|\t{individ.Decode():f2}\t{individ.Fitness:f2}\t{SinFunction.Evaluate(individ.Decode()):f2}\n";
+                string l2 = $"|\t{individ.Decode():f2}\t{individ.Fitness:f2}\t{_func.Evaluate(individ.Decode()):f2}\n";
                 string l3 = "|== == ==\n";
                 genTemp += l1 + l2 + l3;
             }
@@ -262,47 +243,67 @@ namespace GeneticAlgorithm
     // Индивид
     public class Individ
     {
-        public int[] Chromosome;
+        public int[][] Chromosome;
         public double Fitness;
 
-        public int BitCount { get; private set; }
+        public int[] BitCount { get; private set; }
         public FuncParams FP { get; private set; }
 
         public Individ(FuncParams FP)
         {
             this.FP = FP;
-            // Пока для одной переменной
-            BitCount = GrayCode.CalcCLenght(FP);
-            Chromosome = new int[BitCount];
             var rnd = new Random();
-            for (int i = 0; i < BitCount; i++)
-                Chromosome[i] = rnd.Next(2);
+            // Пока для одной переменной
+            //BitCount = GrayCode.CalcCLenght(FP);
+            //Chromosome = new int[BitCount];
+            //for (int i = 0; i < BitCount; i++)
+            //    Chromosome[i] = rnd.Next(2);
+
+            BitCount = new int[FP.Dimensions];
+            Chromosome = new int[FP.Dimensions][];
+            for (int i = 0; i < FP.Dimensions; i++){
+                BitCount[i] = GrayCode.CalcCLenght(FP, i);
+                Chromosome[i] = new int[BitCount[i]];
+                for (int j = 0; j < BitCount[i]; j++)
+                    Chromosome[i][j] = rnd.Next(2);
+            }
         }
 
         // Перевод кода Грея в число
-        public double Decode()
+        public double[] Decode()
         {
-            int grayValue = BinaryArrayToInt(Chromosome);
-            int binaryValue = GrayToBinary(grayValue);
-            double x = FP.A + binaryValue * ((FP.B - FP.A) / (Math.Pow(2, BitCount) - 1));
-            return Math.Round(x / FP.Eps) * FP.Eps; // Округление до ближайшего eps
-
-            //int binaryValue = BinaryArrayToInt(Chromosome); // Прямое использование бинарного кода
-            //double x = FP.A + binaryValue * ((FP.B - FP.A) / (Math.Pow(2, BitCount) - 1));
-            //return Math.Round(x / FP.Eps) * FP.Eps;
+            double[] values = new double[FP.Dimensions];
+            for (int i = 0; i < FP.Dimensions; i++){
+                int grayValue = BinaryArrayToInt(Chromosome[i]);
+                int binaryValue = GrayToBinary(grayValue);
+                values[i] = FP.A[i] + binaryValue * ((FP.B[i] - FP.A[i]) / (Math.Pow(2, BitCount[i]) - 1));
+                values[i] = Math.Round(values[i] / FP.Eps[i]) * FP.Eps[i];
+            }
+            return values;
         }
 
         // Скрещивание
         public void Crossbreeding(Individ i1, Individ i2, int CB){
-            for (int i = 0; i < CB; i++) Chromosome[i] = i1.Chromosome[i];
-            for (int i = CB; i < BitCount; i++) Chromosome[i] = i2.Chromosome[i];
+            for (int i = 0; i < FP.Dimensions; i++)
+            {
+                for (int j = 0; i < CB; j++) Chromosome[i][j] = i1.Chromosome[i][j];
+                for (int j = CB; i < BitCount[i]; j++) Chromosome[i][j] = i2.Chromosome[i][j];
+            }
+        }
+        public void Crossbreeding(Individ i1, Individ i2, int CB, int dim)
+        {
+            if (FP.Dimensions < dim) return;
+            for (int j = 0; j < CB; j++) Chromosome[dim][j] = i1.Chromosome[dim][j];
+            for (int j = CB; j < BitCount[dim]; j++) Chromosome[dim][j] = i2.Chromosome[dim][j];
+            
         }
 
         //Мутация
-        public void Mutate(int i)
+        public void Mutate(int dim, int i)
         {
-            if (i >= Chromosome.Length || i < 0) return;
-            Chromosome[i] = Chromosome[i] == 0 ? 1 : 0;
+            if (FP.Dimensions < dim) return;
+            if (i >= Chromosome[dim].Length || i < 0) return;
+            Chromosome[dim][i] = Chromosome[dim][i] == 0 ? 1 : 0;
         }
 
         // Вспомогательные методы
@@ -324,12 +325,18 @@ namespace GeneticAlgorithm
             }
             return binary;
         }
-        public string LogChrom() => string.Join("", Chromosome);
-       
+        public string LogChrom(){
+            string tmp = "";
+            foreach(var chrom in Chromosome){
+                tmp += string.Join("", chrom);
+                tmp += "\t";
+            }
+            return tmp;
+        }
         public Individ Clone()
         {
             var clone = new Individ(this.FP);
-            clone.Chromosome = (int[])this.Chromosome.Clone();
+            clone.Chromosome = (int[][])this.Chromosome.Clone();
             clone.Fitness = this.Fitness;
             return clone;
         }
@@ -362,15 +369,17 @@ namespace GeneticAlgorithm
             return binary;
         }
 
-        static public int CalcCLenght(FuncParams FP)
+        static public int CalcCLenght(FuncParams FP, int i)
         {
-            return (int)Math.Ceiling(Math.Log2((FP.B - FP.A) / FP.Eps + 1));
+            if (FP.Dimensions < i) return 0;    
+            return (int)Math.Ceiling(Math.Log2((FP.B[i] - FP.A[i]) / FP.Eps[i] + 1));
         }
     }
 
     public class GeneticAlgorithmViewModel : ViewModelBase
     {
         private readonly Algorithm _algorithm;
+        private readonly IOptimizationFunction _function;
         private CancellationTokenSource _cancellationTokenSource;
 
         public GraphViewModel ObjectiveFunctionPlot { get; }
@@ -386,9 +395,9 @@ namespace GeneticAlgorithm
         // Привязка параметров алгоритма
         public Algorithm.Settings AlgorithmSettings => _algorithm.Configuration;
 
-        public GeneticAlgorithmViewModel(FuncParams functionParams)
+        public GeneticAlgorithmViewModel(FuncParams functionParams, IOptimizationFunction function)
         {
-            _algorithm = new Algorithm(functionParams);
+            _algorithm = new Algorithm(functionParams, function);
 
             // Инициализация графиков
             ObjectiveFunctionPlot = new GraphViewModel("Целевая функция");
@@ -407,17 +416,18 @@ namespace GeneticAlgorithm
 
             // Первоначальная инициализация графиков
             InitializeFunctionPlots();
+            _function = function;
         }
 
         private void InitializeFunctionPlots()
         {
             // Отрисовка целевой функции
             var points = new List<DataPoint>();
-            for (double x = _algorithm.FunctionParameters.A;
-                 x <= _algorithm.FunctionParameters.B;
+            for (double x = _algorithm.FunctionParameters.A[0];
+                 x <= _algorithm.FunctionParameters.B[0];
                  x += 0.1)
             {
-                double y = SinFunction.Evaluate(x);
+                double y = _function.Evaluate(x);
                 points.Add(new DataPoint(x, y));
             }
             ObjectiveFunctionPlot.UpdateLineSeries(points, OxyColors.Blue, "Целевая функция");
@@ -431,7 +441,7 @@ namespace GeneticAlgorithm
         {
             // Обновление точек популяции
             var populationPoints = state.Population.Pop
-                .Select(ind => new DataPoint(ind.Decode(), SinFunction.Evaluate(ind.Decode())));
+                .Select(ind => new DataPoint(ind.Decode()[0], _function.Evaluate(ind.Decode())));
 
             ObjectiveFunctionPlot.UpdateScatterSeries(
                 populationPoints,

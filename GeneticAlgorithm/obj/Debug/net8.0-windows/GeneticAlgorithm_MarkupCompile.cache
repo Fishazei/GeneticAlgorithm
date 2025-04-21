@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\dns\Desktop\Git\GeneticAlgorithm\GeneticAlgorithm\App.xaml
-51306594165
+5-663654036
 
-101975556053
+10-690076722
 207-1504545252
-MainWindow.xaml;Views\FunctionChart.xaml;Views\NavMenu.xaml;Views\TaskPage1_V.xaml;Views\TaskPage2_V.xaml;
+MainWindow.xaml;Views\FunctionChart.xaml;Views\Plot3DFunc.xaml;Views\TaskPage1_V.xaml;Views\TaskPage2_V.xaml;
 
 False
 

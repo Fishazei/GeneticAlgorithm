@@ -1,0 +1,10 @@
+﻿<UserControl x:Class="GeneticAlgorithm.Views.Plot3DFunc"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:h="http://helix-toolkit.org/wpf">
+    <h:HelixViewport3D ZoomExtentsWhenLoaded="True">
+        <h:SunLight/>
+        <h:DefaultLights/>
+        <ModelVisual3D Content="{Binding ModelGroup}"/>
+    </h:HelixViewport3D>
+</UserControl>
