@@ -35,7 +35,7 @@ namespace GeneticAlgorithm.Views
             var functionParams = new FuncParams {
                 A = [-5], 
                 B = [5], 
-                Eps = [0.01] 
+                Eps = [0.00001] 
             };
             _algorithm = new Algorithm(functionParams, new SinFunction(), "task1");
 

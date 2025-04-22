@@ -142,16 +142,21 @@ namespace GeneticAlgorithm.Views
         // Метод для добавления/обновления точек
         public void UpdateScatterSeries(IEnumerable<DataPoint> points, OxyColor color, string title = "")
         {
+            // Проверяем, есть ли точки
+            var pointsList = points.ToList();
+            if (!pointsList.Any()) return;
             // Удаляем предыдущие точки с таким же title
             var existingScatter = PlotModel.Series
                 .OfType<ScatterSeries>()
                 .FirstOrDefault(s => s.Title == title);
-
             if (existingScatter != null)
-            {
                 PlotModel.Series.Remove(existingScatter);
-            }
-
+            existingScatter = PlotModel.Series
+                .OfType<ScatterSeries>()
+                .FirstOrDefault(s => s.Title == $"{title}_FirstPoint");
+            if (existingScatter != null)
+                PlotModel.Series.Remove(existingScatter);
+            // Основные 
             var scatterSeries = new ScatterSeries
             {
                 Title = title,
@@ -161,7 +166,16 @@ namespace GeneticAlgorithm.Views
                 MarkerStroke = OxyColors.Black,
                 MarkerStrokeThickness = 1
             };
-
+            // Создаем серию для первой точки (зеленая)
+            var firstPointSeries = new ScatterSeries
+            {
+                Title = $"{title}_FirstPoint",
+                MarkerType = MarkerType.Circle,
+                MarkerSize = 5,  // Чуть больше для выделения
+                MarkerFill = OxyColors.Green,
+                MarkerStroke = OxyColors.Black,
+                MarkerStrokeThickness = 1
+            };
             var groupedPoints = points
                 .GroupBy(p => new { p.X, p.Y })
                 .Select(g => new {
@@ -170,12 +184,14 @@ namespace GeneticAlgorithm.Views
                     Count = g.Count(),
                     Size = 5 + Math.Log(g.Count()) * 2 // Размер зависит от кол-ва точек
                 });
-
             foreach (var point in groupedPoints)
-            {
-                scatterSeries.Points.Add(new ScatterPoint(point.X, point.Y, point.Size));
+                scatterSeries.Points.Add(new ScatterPoint(point.X, point.Y, point.Size));        
+            if (pointsList.Any()){
+                var firstPoint = pointsList.First();
+                firstPointSeries.Points.Add(new ScatterPoint(firstPoint.X, firstPoint.Y));
             }
             PlotModel.Series.Add(scatterSeries);
+            PlotModel.Series.Add(firstPointSeries);
             PlotModel.InvalidatePlot(true);
         }
 

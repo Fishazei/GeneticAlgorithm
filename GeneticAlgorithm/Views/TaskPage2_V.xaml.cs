@@ -48,9 +48,9 @@ namespace GeneticAlgorithm.Views
         {
             var functionParams = new FuncParams
             {
-                A = [-4.0, -4.0],
-                B = [4.0, 4.0],
-                Eps = [0.001, 0.001]
+                A = [-5.0, -5.0],
+                B = [5.0, 5.0],
+                Eps = [0.0001, 0.0001]
             };
             _algorithm = new Algorithm(functionParams, new ZYXFunction(), "task2");
 

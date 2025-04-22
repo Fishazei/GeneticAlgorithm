@@ -19,7 +19,7 @@
     {
         public double Evaluate(params double[] x) =>
             -1.3 * Math.Sin(1.6 * Math.Pow(x[0], 2) - 0.3) * Math.Exp(-0.3 * x[0] + 0.5);
-        public double Fitness(params double[] x) => -Evaluate(x) + 10;
+        public double Fitness(params double[] x) => Evaluate(x) + 10;
     }
     public class ZYXFunction : IOptimizationFunction
     {
