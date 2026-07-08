@@ -1,0 +1,166 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\fisha\\repos\\git\\GeneticAlgorithm\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{94C963EF-96AC-4228-836A-160FAD3B77B9}|GeneticAlgorithm\\GeneticAlgorithm.csproj|c:\\users\\fisha\\repos\\git\\geneticalgorithm\\geneticalgorithm\\algorithm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94C963EF-96AC-4228-836A-160FAD3B77B9}|GeneticAlgorithm\\GeneticAlgorithm.csproj|solutionrelative:geneticalgorithm\\algorithm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94C963EF-96AC-4228-836A-160FAD3B77B9}|GeneticAlgorithm\\GeneticAlgorithm.csproj|c:\\users\\fisha\\repos\\git\\geneticalgorithm\\geneticalgorithm\\views\\taskpage1_v.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94C963EF-96AC-4228-836A-160FAD3B77B9}|GeneticAlgorithm\\GeneticAlgorithm.csproj|solutionrelative:geneticalgorithm\\views\\taskpage1_v.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94C963EF-96AC-4228-836A-160FAD3B77B9}|GeneticAlgorithm\\GeneticAlgorithm.csproj|c:\\users\\fisha\\repos\\git\\geneticalgorithm\\geneticalgorithm\\views\\taskpage1_v.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{94C963EF-96AC-4228-836A-160FAD3B77B9}|GeneticAlgorithm\\GeneticAlgorithm.csproj|solutionrelative:geneticalgorithm\\views\\taskpage1_v.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94C963EF-96AC-4228-836A-160FAD3B77B9}|GeneticAlgorithm\\GeneticAlgorithm.csproj|c:\\users\\fisha\\repos\\git\\geneticalgorithm\\geneticalgorithm\\views\\taskpage2_v.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94C963EF-96AC-4228-836A-160FAD3B77B9}|GeneticAlgorithm\\GeneticAlgorithm.csproj|solutionrelative:geneticalgorithm\\views\\taskpage2_v.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94C963EF-96AC-4228-836A-160FAD3B77B9}|GeneticAlgorithm\\GeneticAlgorithm.csproj|c:\\users\\fisha\\repos\\git\\geneticalgorithm\\geneticalgorithm\\functions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94C963EF-96AC-4228-836A-160FAD3B77B9}|GeneticAlgorithm\\GeneticAlgorithm.csproj|solutionrelative:geneticalgorithm\\functions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94C963EF-96AC-4228-836A-160FAD3B77B9}|GeneticAlgorithm\\GeneticAlgorithm.csproj|c:\\users\\fisha\\repos\\git\\geneticalgorithm\\geneticalgorithm\\views\\plot3dfunc.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{94C963EF-96AC-4228-836A-160FAD3B77B9}|GeneticAlgorithm\\GeneticAlgorithm.csproj|solutionrelative:geneticalgorithm\\views\\plot3dfunc.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94C963EF-96AC-4228-836A-160FAD3B77B9}|GeneticAlgorithm\\GeneticAlgorithm.csproj|c:\\users\\fisha\\repos\\git\\geneticalgorithm\\geneticalgorithm\\views\\plot3dfunc.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94C963EF-96AC-4228-836A-160FAD3B77B9}|GeneticAlgorithm\\GeneticAlgorithm.csproj|solutionrelative:geneticalgorithm\\views\\plot3dfunc.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94C963EF-96AC-4228-836A-160FAD3B77B9}|GeneticAlgorithm\\GeneticAlgorithm.csproj|c:\\users\\fisha\\repos\\git\\geneticalgorithm\\geneticalgorithm\\views\\functionchart.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94C963EF-96AC-4228-836A-160FAD3B77B9}|GeneticAlgorithm\\GeneticAlgorithm.csproj|solutionrelative:geneticalgorithm\\views\\functionchart.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94C963EF-96AC-4228-836A-160FAD3B77B9}|GeneticAlgorithm\\GeneticAlgorithm.csproj|c:\\users\\fisha\\repos\\git\\geneticalgorithm\\geneticalgorithm\\views\\taskpage2_v.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{94C963EF-96AC-4228-836A-160FAD3B77B9}|GeneticAlgorithm\\GeneticAlgorithm.csproj|solutionrelative:geneticalgorithm\\views\\taskpage2_v.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e506b91c-c606-466a-90a9-123d1d1e12b3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TaskPage1_V.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\fisha\\repos\\git\\GeneticAlgorithm\\GeneticAlgorithm\\Views\\TaskPage1_V.xaml.cs",
+              "RelativeDocumentMoniker": "GeneticAlgorithm\\Views\\TaskPage1_V.xaml.cs",
+              "ToolTip": "C:\\Users\\fisha\\repos\\git\\GeneticAlgorithm\\GeneticAlgorithm\\Views\\TaskPage1_V.xaml.cs",
+              "RelativeToolTip": "GeneticAlgorithm\\Views\\TaskPage1_V.xaml.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAB8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T16:16:43.937Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "FunctionChart.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\fisha\\repos\\git\\GeneticAlgorithm\\GeneticAlgorithm\\Views\\FunctionChart.xaml.cs",
+              "RelativeDocumentMoniker": "GeneticAlgorithm\\Views\\FunctionChart.xaml.cs",
+              "ToolTip": "C:\\Users\\fisha\\repos\\git\\GeneticAlgorithm\\GeneticAlgorithm\\Views\\FunctionChart.xaml.cs",
+              "RelativeToolTip": "GeneticAlgorithm\\Views\\FunctionChart.xaml.cs",
+              "ViewState": "AQIAAK0AAAAAAAAAAAAAAEwAAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T16:16:43.943Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "TaskPage2_V.xaml",
+              "DocumentMoniker": "C:\\Users\\fisha\\repos\\git\\GeneticAlgorithm\\GeneticAlgorithm\\Views\\TaskPage2_V.xaml",
+              "RelativeDocumentMoniker": "GeneticAlgorithm\\Views\\TaskPage2_V.xaml",
+              "ToolTip": "C:\\Users\\fisha\\repos\\git\\GeneticAlgorithm\\GeneticAlgorithm\\Views\\TaskPage2_V.xaml",
+              "RelativeToolTip": "GeneticAlgorithm\\Views\\TaskPage2_V.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-07-08T16:16:43.947Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "TaskPage2_V.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\fisha\\repos\\git\\GeneticAlgorithm\\GeneticAlgorithm\\Views\\TaskPage2_V.xaml.cs",
+              "RelativeDocumentMoniker": "GeneticAlgorithm\\Views\\TaskPage2_V.xaml.cs",
+              "ToolTip": "C:\\Users\\fisha\\repos\\git\\GeneticAlgorithm\\GeneticAlgorithm\\Views\\TaskPage2_V.xaml.cs",
+              "RelativeToolTip": "GeneticAlgorithm\\Views\\TaskPage2_V.xaml.cs",
+              "ViewState": "AQIAAD8AAAAAAAAAAAAAADAAAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T16:16:43.952Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Plot3DFunc.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\fisha\\repos\\git\\GeneticAlgorithm\\GeneticAlgorithm\\Views\\Plot3DFunc.xaml.cs",
+              "RelativeDocumentMoniker": "GeneticAlgorithm\\Views\\Plot3DFunc.xaml.cs",
+              "ToolTip": "C:\\Users\\fisha\\repos\\git\\GeneticAlgorithm\\GeneticAlgorithm\\Views\\Plot3DFunc.xaml.cs",
+              "RelativeToolTip": "GeneticAlgorithm\\Views\\Plot3DFunc.xaml.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T16:16:43.956Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Plot3DFunc.xaml",
+              "DocumentMoniker": "C:\\Users\\fisha\\repos\\git\\GeneticAlgorithm\\GeneticAlgorithm\\Views\\Plot3DFunc.xaml",
+              "RelativeDocumentMoniker": "GeneticAlgorithm\\Views\\Plot3DFunc.xaml",
+              "ToolTip": "C:\\Users\\fisha\\repos\\git\\GeneticAlgorithm\\GeneticAlgorithm\\Views\\Plot3DFunc.xaml",
+              "RelativeToolTip": "GeneticAlgorithm\\Views\\Plot3DFunc.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-07-08T16:16:43.962Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Functions.cs",
+              "DocumentMoniker": "C:\\Users\\fisha\\repos\\git\\GeneticAlgorithm\\GeneticAlgorithm\\Functions.cs",
+              "RelativeDocumentMoniker": "GeneticAlgorithm\\Functions.cs",
+              "ToolTip": "C:\\Users\\fisha\\repos\\git\\GeneticAlgorithm\\GeneticAlgorithm\\Functions.cs",
+              "RelativeToolTip": "GeneticAlgorithm\\Functions.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAABFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T16:16:43.966Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Algorithm.cs",
+              "DocumentMoniker": "C:\\Users\\fisha\\repos\\git\\GeneticAlgorithm\\GeneticAlgorithm\\Algorithm.cs",
+              "RelativeDocumentMoniker": "GeneticAlgorithm\\Algorithm.cs",
+              "ToolTip": "C:\\Users\\fisha\\repos\\git\\GeneticAlgorithm\\GeneticAlgorithm\\Algorithm.cs",
+              "RelativeToolTip": "GeneticAlgorithm\\Algorithm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAF0BAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T16:16:43.971Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TaskPage1_V.xaml",
+              "DocumentMoniker": "C:\\Users\\fisha\\repos\\git\\GeneticAlgorithm\\GeneticAlgorithm\\Views\\TaskPage1_V.xaml",
+              "RelativeDocumentMoniker": "GeneticAlgorithm\\Views\\TaskPage1_V.xaml",
+              "ToolTip": "C:\\Users\\fisha\\repos\\git\\GeneticAlgorithm\\GeneticAlgorithm\\Views\\TaskPage1_V.xaml",
+              "RelativeToolTip": "GeneticAlgorithm\\Views\\TaskPage1_V.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-07-08T16:16:43.333Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
